@@ -1,0 +1,24 @@
+---
+- hosts: all
+  strategy: linear
+  become: true
+
+  tasks:
+  - name: install sql
+    apt:
+      pkg: 
+        - mariadb-server
+      force_apt_get: true
+      state: present
+
+  - name: mysql user
+    mysql_user:
+      login_user: root
+      name: usereqq
+      password: "TESTPASS"
+      priv: '*.*:ALL'
+      state: present
+    become: true
+
+
+

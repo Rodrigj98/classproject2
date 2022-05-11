@@ -1,0 +1,9 @@
+---
+# tasks file for apache
+- name: Install apache2
+  apt: name=apache2 update_cache=true state=present
+  changed_when: false
+  tags: [ system ]
+  notify:
+    - Restart apache
+

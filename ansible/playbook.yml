@@ -1,0 +1,12 @@
+---
+- hosts: all
+  strategy: linear
+  become: true
+  roles:
+  - { role: pkgupdate, become: true }
+  - { role: apache, become: true }
+  - { role: php, become: true }
+  - { role: mysql, become: true }
+  - { role: wordpress, become: true }
+  vars_files:
+    - vars/default.yml

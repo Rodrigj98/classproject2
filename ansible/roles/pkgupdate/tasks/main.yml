@@ -1,0 +1,44 @@
+---
+# tasks file for pkgupdate
+- name: Rebooting remote server
+  reboot:
+
+- name: update and upgrade apt packages
+  apt: 
+    upgrade: True
+    update_cache: True
+    cache_valid_time: 3600
+- name: add apt repository
+  apt_repository: 
+    repo: 'ppa:ondrej/php' 
+    state: present 
+    update_cache: yes
+  become: true
+ 
+
+- name: Rebooting remote server
+  reboot:
+
+#- name: Installing Dependencies
+#  apt:
+#    pkg:
+#      - build-essential 
+#      - libexpat1-dev 
+#      - libgeoip-dev 
+#      - libpcre3-dev 
+#      - zlib1g-dev 
+#      - libssl-dev 
+#      - libxml2-dev 
+#      - rcs 
+#      - libpng-dev
+#      - php 
+#      - php-common 
+#      - php-curl 
+#      - php-mysql 
+#      - php-opcache 
+#      - php-imap 
+#      - php-opcache
+#      - mysql-server
+#    update_cache: true 
+#    state: present
+#  changed_when: false

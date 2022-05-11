@@ -1,0 +1,33 @@
+---
+- name: Push latest WordPress
+  copy:
+    src: "files/latest.tar.gz"
+    dest: "/tmp"
+    mode: '0750'
+  tags: [ wordpress ]
+- name: Unpacking latest WordPress
+  unarchive:
+    src: files/latest.tar.gz
+    dest: "/var/www/"
+    mode: '0750'
+  tags: [ wordpress ]
+
+- name: Cleanup html dir
+  command: rm -rf /var/www/html
+
+- name: move wordpress to /var/www/html
+  command: mv /var/www/wordpress /var/www/html
+
+
+- name: change ownership of folder
+  command: chown -R www-data:www-data /var/www/html
+
+- name: Install wp-config
+  template:
+    src: "files/wp-config.php.j2"
+    dest: "{{ doc_root }}/wp-config.php"
+    mode: '0640'
+    owner: "www-data"
+    group: "www-data"
+  tags: [ wordpress ]
+
